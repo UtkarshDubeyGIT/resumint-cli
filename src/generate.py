@@ -691,7 +691,7 @@ class ResumeGenTUI(App):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.reload_profile_data()
+        self.call_after_refresh(self.reload_profile_data)
         self.set_timer(1.2, self.hide_splash)
 
     def hide_splash(self) -> None:
@@ -710,24 +710,24 @@ class ResumeGenTUI(App):
             with open(profile_path, "r") as f:
                 content = f.read()
                 data = yaml.safe_load(content)
+
+            # Update preview box
+            preview_box = self.query_one("#profile-yaml-preview", TextArea)
+            preview_box.text = content
+
+            # Update inputs safely
+            info = data.get("personal_info", {}) if isinstance(data, dict) else {}
+            self.query_one("#profile-name", Input).value = str(info.get("name") or "")
+            self.query_one("#profile-email", Input).value = str(info.get("email") or "")
+            self.query_one("#profile-phone", Input).value = str(info.get("phone") or "")
+            self.query_one("#profile-institution", Input).value = str(info.get("institution") or "")
+            self.query_one("#profile-website", Input).value = str(info.get("website") or "")
+            self.query_one("#profile-linkedin", Input).value = str(info.get("linkedin") or "")
+            self.query_one("#profile-github", Input).value = str(info.get("github") or "")
+            self.query_one("#profile-leetcode", Input).value = str(info.get("leetcode") or "")
         except Exception as e:
-            self.notify(f"Failed to load profile.yaml: {e}", severity="error")
-            return
-
-        # Update preview box
-        preview_box = self.query_one("#profile-yaml-preview", TextArea)
-        preview_box.text = content
-
-        # Update inputs
-        info = data.get("personal_info", {})
-        self.query_one("#profile-name", Input).value = str(info.get("name", ""))
-        self.query_one("#profile-email", Input).value = str(info.get("email", ""))
-        self.query_one("#profile-phone", Input).value = str(info.get("phone", ""))
-        self.query_one("#profile-institution", Input).value = str(info.get("institution", ""))
-        self.query_one("#profile-website", Input).value = str(info.get("website", ""))
-        self.query_one("#profile-linkedin", Input).value = str(info.get("linkedin", ""))
-        self.query_one("#profile-github", Input).value = str(info.get("github", ""))
-        self.query_one("#profile-leetcode", Input).value = str(info.get("leetcode", ""))
+            # Prevent crashes by catching any NoMatches or parsing exceptions
+            pass
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "btn-copy-logs":
