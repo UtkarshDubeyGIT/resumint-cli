@@ -503,6 +503,7 @@ class ResumeGenTUI(App):
         height: 1fr;
         border-right: solid #333333;
         padding-right: 2;
+        overflow-y: auto;
     }
     #content-area, #profile-preview-area {
         width: 65%;
@@ -743,7 +744,8 @@ class ResumeGenTUI(App):
         if event.button.id == "btn-profile-edit":
             profile_path = os.path.join(RESUMINT_DIR, "profile.yaml")
             editor = os.getenv("EDITOR", "nano")
-            self.suspend(subprocess.run, [editor, profile_path])
+            with self.suspend():
+                subprocess.run([editor, profile_path])
             self.reload_profile_data()
             self.notify("Returned from editor & reloaded profile!", severity="info")
             return
