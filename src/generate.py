@@ -403,7 +403,7 @@ Selected Projects: {json.dumps(resume_selection.get('selected_projects'))}
 # ----------------------------------------------------------------------
 try:
     from textual.app import App, ComposeResult
-    from textual.containers import Container, Horizontal, Vertical
+    from textual.containers import Container, Horizontal, Vertical, VerticalScroll
     from textual.widgets import Header, Footer, Input, TextArea, Checkbox, Button, Label, Select, TabbedContent, TabPane
     from textual.screen import Screen
     from textual.worker import get_current_worker
@@ -423,7 +423,14 @@ try:
                     self.app.copy_to_clipboard(self.text)
                     self.app.notify("All logs copied to clipboard!", severity="info", timeout=2)
 
-    # SplashScreen removed (now embedded directly in main screen layout)
+    class SplashScreen(Screen):
+        def compose(self) -> ComposeResult:
+            yield Vertical(
+                Label(ResumeGenTUI.ASCII_ART, id="splash-logo"),
+                Label("AI-Powered Resume Tailoring & Generation Tool", id="splash-subtitle"),
+                Label("Initializing...", id="splash-status"),
+                id="splash-container"
+            )
 
     class ExitScreen(Screen):
         def compose(self) -> ComposeResult:
@@ -450,9 +457,6 @@ class ResumeGenTUI(App):
 """
 
     CSS = """
-    .hidden {
-        display: none !important;
-    }
     Screen {
         background: #121212;
     }
@@ -482,26 +486,27 @@ class ResumeGenTUI(App):
         text-style: bold;
         content-align: center middle;
     }
-    TabbedContent {
-        height: 100%;
+    TabbedContent, #main-tabs {
+        height: 1fr;
         width: 100%;
     }
     #tab-generate, #tab-profile {
         padding: 1 2;
+        height: 1fr;
     }
     #generate-container, #profile-container {
         width: 100%;
-        height: 100%;
+        height: 1fr;
     }
     #sidebar, #profile-form {
         width: 35%;
-        height: 100%;
+        height: 1fr;
         border-right: solid #333333;
         padding-right: 2;
     }
     #content-area, #profile-preview-area {
         width: 65%;
-        height: 100%;
+        height: 1fr;
         padding-left: 2;
     }
     .field-label {
@@ -597,16 +602,10 @@ class ResumeGenTUI(App):
 
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
-        
-        with Vertical(id="splash-container"):
-            yield Label(self.ASCII_ART, id="splash-logo")
-            yield Label("AI-Powered Resume Tailoring & Generation Tool", id="splash-subtitle")
-            yield Label("Initializing...", id="splash-status")
-            
-        with TabbedContent(initial="tab-generate", id="main-tabs", classes="hidden"):
+        with TabbedContent(initial="tab-generate", id="main-tabs"):
             with TabPane("Tailor Resume", id="tab-generate"):
                 with Horizontal(id="generate-container"):
-                    with Vertical(id="sidebar"):
+                    with VerticalScroll(id="sidebar"):
                         if not os.getenv("GEMINI_API_KEY"):
                             yield Label("GEMINI API KEY", classes="field-label")
                             yield Input(
@@ -653,7 +652,7 @@ class ResumeGenTUI(App):
 
             with TabPane("Edit Profile", id="tab-profile"):
                 with Horizontal(id="profile-container"):
-                    with Vertical(id="profile-form"):
+                    with VerticalScroll(id="profile-form"):
                         yield Label("PERSONAL INFO", classes="field-label")
                         
                         yield Label("Full Name", classes="field-label")
@@ -691,12 +690,9 @@ class ResumeGenTUI(App):
         yield Footer()
 
     def on_mount(self) -> None:
+        self.push_screen(SplashScreen())
+        self.set_timer(1.2, lambda: self.app.pop_screen())
         self.call_after_refresh(self.reload_profile_data)
-        self.set_timer(1.2, self.hide_splash)
-
-    def hide_splash(self) -> None:
-        self.query_one("#splash-container").add_class("hidden")
-        self.query_one("#main-tabs").remove_class("hidden")
 
     def action_custom_quit(self) -> None:
         self.push_screen(ExitScreen())
