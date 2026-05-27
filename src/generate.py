@@ -439,7 +439,7 @@ try:
             )
 
         def on_mount(self) -> None:
-            self.set_timer(1.2, self.dismiss)
+            self.set_timer(1.2, lambda: self.app.pop_screen())
 
     class ExitScreen(Screen):
         def compose(self) -> ComposeResult:
