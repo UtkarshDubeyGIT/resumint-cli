@@ -423,23 +423,7 @@ try:
                     self.app.copy_to_clipboard(self.text)
                     self.app.notify("All logs copied to clipboard!", severity="info", timeout=2)
 
-    class SplashScreen(Screen):
-        ASCII_ART = r"""
-  ___  ___ ___ _   _ __  __ ___ _  _ _____ 
- | _ \/ __| __| | | |  \/  |_ _| \| |_   _|
- |   /\__ \ _| |_| | |\/| || || .` | | |  
- |_|_\|___/___|\___/|_|  |_|___|_|\_| |_|  
-"""
-        def compose(self) -> ComposeResult:
-            yield Vertical(
-                Label(self.ASCII_ART, id="splash-logo"),
-                Label("AI-Powered Resume Tailoring & Generation Tool", id="splash-subtitle"),
-                Label("Initializing...", id="splash-status"),
-                id="splash-container"
-            )
-
-        def on_mount(self) -> None:
-            self.set_timer(1.2, lambda: self.app.pop_screen())
+    # SplashScreen removed (now embedded directly in main screen layout)
 
     class ExitScreen(Screen):
         def compose(self) -> ComposeResult:
@@ -458,7 +442,17 @@ except ImportError:
     class ExitScreen(object): pass
 
 class ResumeGenTUI(App):
+    ASCII_ART = r"""
+  ___  ___ ___ _   _ __  __ ___ _  _ _____ 
+ | _ \/ __| __| | | |  \/  |_ _| \| |_   _|
+ |   /\__ \ _| |_| | |\/| || || .` | | |  
+ |_|_\|___/___|\___/|_|  |_|___|_|\_| |_|  
+"""
+
     CSS = """
+    .hidden {
+        display: none !important;
+    }
     Screen {
         background: #121212;
     }
@@ -603,7 +597,13 @@ class ResumeGenTUI(App):
 
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
-        with TabbedContent(initial="tab-generate"):
+        
+        with Vertical(id="splash-container"):
+            yield Label(self.ASCII_ART, id="splash-logo")
+            yield Label("AI-Powered Resume Tailoring & Generation Tool", id="splash-subtitle")
+            yield Label("Initializing...", id="splash-status")
+            
+        with TabbedContent(initial="tab-generate", id="main-tabs", classes="hidden"):
             with TabPane("Tailor Resume", id="tab-generate"):
                 with Horizontal(id="generate-container"):
                     with Vertical(id="sidebar"):
@@ -691,8 +691,12 @@ class ResumeGenTUI(App):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.push_screen(SplashScreen())
         self.reload_profile_data()
+        self.set_timer(1.2, self.hide_splash)
+
+    def hide_splash(self) -> None:
+        self.query_one("#splash-container").add_class("hidden")
+        self.query_one("#main-tabs").remove_class("hidden")
 
     def action_custom_quit(self) -> None:
         self.push_screen(ExitScreen())
