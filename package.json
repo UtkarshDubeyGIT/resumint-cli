@@ -1,6 +1,6 @@
 {
   "name": "resumint-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "AI-powered tailored resume & cover letter generator — powered by Google Gemini. Generate PDF resumes from a master profile YAML in seconds.",
   "bin": {
     "resumint-cli": "./bin/resumint-cli.js"

@@ -60,11 +60,11 @@ projects:
 experience: [] # Optional: Add professional experience items here if desired.
 
 achievements:
-  - description: First Place Winner - Global hackathon (2025): Developed an AI-assisted accessibility tool.
+  - description: "First Place Winner - Global hackathon (2025): Developed an AI-assisted accessibility tool."
     link: https://github.com/janedoe/hackathon-winner
     tags: [sde, ai]
   
-  - description: Outstanding Undergraduate Researcher Award (2025) for contributions to computer vision.
+  - description: "Outstanding Undergraduate Researcher Award (2025) for contributions to computer vision."
     link: ""
     tags: [ai, research]
 
