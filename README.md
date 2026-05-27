@@ -1,3 +1,5 @@
+<img width="1983" height="793" alt="ChatGPT Image May 27, 2026 at 09_18_53 PM" src="https://github.com/user-attachments/assets/ac528efe-a25f-41ba-9ac4-a3f83530df31" />
+
 # resumint-cli 🙌
 
 **resumint-cli** is an AI-powered resume and cover letter generator designed to tailor your master profile to specific job descriptions in seconds. Powered by the **Google Gemini API** and compiled locally using **Tectonic (LaTeX)**, it ensures your resume remains ATS-friendly, professional, and directly targeted to the role.
