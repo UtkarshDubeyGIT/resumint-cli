@@ -1,0 +1,70 @@
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=0.55in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks,
+    colorlinks=true,
+    urlcolor=blue
+}
+
+\linespread{1.12}
+\setlist[itemize]{noitemsep, topsep=4pt, left=0pt}
+\pagestyle{empty}
+
+\newcommand{\resheading}[1]{\vspace{8pt} \noindent \textbf{\large\scshape{#1}} \vspace{4pt} \hrule \vspace{6pt}}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Large{((( personal_info.name )))}} \\ \vspace{0.4em}
+    ((% if personal_info.institution %))((( personal_info.institution ))) | ((% endif %))\href{mailto:((( personal_info.email )))}{((( personal_info.email )))} | ((( personal_info.phone ))) \\
+    ((% if personal_info.website %))\href{https://((( personal_info.website )))}{((( personal_info.website )))}((% endif %))((% if personal_info.linkedin %)) | \href{((( personal_info.linkedin )))}{LinkedIn}((% endif %))((% if personal_info.github %)) | \href{((( personal_info.github )))}{GitHub}((% endif %))((% if personal_info.leetcode %)) | \href{((( personal_info.leetcode )))}{LeetCode}((% endif %))
+\end{center}
+
+\resheading{EDUCATION}
+\begin{itemize}[leftmargin=*]
+((% for edu in education %))
+\item \textbf{((( edu.degree )))} | ((( edu.institution ))) \hfill ((( edu.year ))) \\
+      Result: \textbf{((( edu.result )))}
+((% endfor %))
+\end{itemize}
+
+\resheading{PROJECTS}
+\begin{itemize}[leftmargin=*]
+((% for project in projects %))
+\item \textbf{((( project.title )))} \hfill ((( project.date )))
+    \begin{itemize}[noitemsep, topsep=2pt]
+        \item \textbf{Tech Stack}: ((( project.tech_stack | join(', ') )))
+        ((% if project.links %))
+        \item \textbf{Links}: ((% for label, url in project.links.items() %))\href{((( url )))}{((( label )))}((%- if not loop.last %)) | ((% endif %))((% endfor %))
+        ((% endif %))
+        ((% for bullet in project.bullet_points %))
+        \item ((( bullet )))
+        ((% endfor %))
+    \end{itemize}
+((% endfor %))
+\end{itemize}
+
+\resheading{ACHIEVEMENTS \& EXTRA-CURRICULAR ACTIVITIES}
+\begin{itemize}[leftmargin=*]
+((% for achievement in achievements %))
+\item ((( achievement.description )))
+((% endfor %))
+\end{itemize}
+
+\resheading{TECHNICAL SKILLS}
+\begin{itemize}[leftmargin=*]
+((% for skill in skills %))
+\item \textbf{((( skill.category )))}: ((( skill['items'] | join(', ') )))
+((% endfor %))
+\end{itemize}
+
+\end{document}

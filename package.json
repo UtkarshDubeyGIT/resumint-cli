@@ -1,0 +1,33 @@
+{
+  "name": "resumint-cli",
+  "version": "1.0.0",
+  "description": "AI-powered tailored resume & cover letter generator — powered by Google Gemini. Generate PDF resumes from a master profile YAML in seconds.",
+  "bin": {
+    "resumint-cli": "./bin/resumint-cli.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "templates/",
+    "prompts/",
+    "scaffold/",
+    "requirements.txt"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "resume", "cv", "cli", "gemini", "ai", "latex", "tui", "cover-letter",
+    "job-application", "pdf-generator", "career"
+  ],
+  "author": "Utkarsh Dubey <utkarsh.dubey.ug23@nsut.ac.in>",
+  "license": "MIT",
+  "homepage": "https://github.com/UtkarshDubeyGIT/resumint-cli#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UtkarshDubeyGIT/resumint-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/UtkarshDubeyGIT/resumint-cli/issues"
+  }
+}

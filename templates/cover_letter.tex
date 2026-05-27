@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage{url}
+\usepackage{palatino}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks,
+    colorlinks=true,
+    urlcolor=blue
+}
+
+\linespread{1.15}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Large{((( personal_info.name )))}} \\ \vspace{0.4em}
+    ((% if personal_info.institution %))((( personal_info.institution ))) | ((% endif %))\href{mailto:((( personal_info.email )))}{((( personal_info.email )))} | ((( personal_info.phone ))) \\
+    ((% if personal_info.website %))\href{https://((( personal_info.website )))}{((( personal_info.website )))}((% endif %))((% if personal_info.linkedin %)) | \href{((( personal_info.linkedin )))}{LinkedIn}((% endif %))((% if personal_info.github %)) | \href{((( personal_info.github )))}{GitHub}((% endif %))((% if personal_info.leetcode %)) | \href{((( personal_info.leetcode )))}{LeetCode}((% endif %))
+\end{center}
+
+\vspace{1.5em}
+
+\noindent
+\textbf{Date:} ((( date ))) \\
+\textbf{To:} ((( recipient_name ))) \\
+\textbf{Subject:} ((( subject )))
+
+\vspace{1.5em}
+
+((% for para in paragraphs %))
+\noindent
+((( para )))
+
+\vspace{1.2em}
+((% endfor %))
+
+\vspace{1.5em}
+
+\noindent
+Sincerely, \\
+\vspace{1.5em} \\
+\textbf{((( personal_info.name )))}
+
+\end{document}

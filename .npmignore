@@ -1,0 +1,12 @@
+# Not needed in npm package
+venv/
+__pycache__/
+*.pyc
+output/
+Resumes/
+artifacts/
+.env
+.DS_Store
+*.log
+.vscode/
+.idea/

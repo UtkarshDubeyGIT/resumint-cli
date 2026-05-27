@@ -1,0 +1,86 @@
+# Master Profile Database
+# Edit this file to update your skills, projects, education, and achievements.
+# Tags like 'sde', 'ai', 'research' are used by Gemini to select the most relevant entries.
+
+personal_info:
+  name: Jane Doe
+  email: jane.doe@example.com
+  phone: "+1-555-0199"
+  website: janedoe.dev
+  linkedin: https://www.linkedin.com/in/janedoe
+  github: https://www.github.com/janedoe
+  leetcode: https://leetcode.com/janedoe
+  institution: University of Science and Technology
+
+education:
+  - degree: B.S. in Computer Science
+    year: 2022-2026
+    institution: University of Science and Technology
+    result: 3.9 GPA
+  - degree: High School Diploma
+    year: 2022
+    institution: Tech Prep Academy
+    result: 4.0 GPA
+
+projects:
+  - title: CloudScale - Distributed Key-Value Store
+    date: Jun 2025 - Dec 2025
+    tech_stack: [Go, gRPC, Protobuf, Docker, Kubernetes, Prometheus]
+    links:
+      GitHub: https://github.com/janedoe/cloudscale
+      Live Demo: https://cloudscale.janedoe.dev
+    tags: [sde]
+    bullet_points:
+      - Designed and implemented a highly available, distributed key-value store in Go utilizing the Raft consensus algorithm.
+      - Achieved sub-10ms read/write latencies at 50,000 requests per second by optimizing network serialization with gRPC.
+      - Integrated Prometheus and Grafana for real-time monitoring of consensus latency and system health.
+
+  - title: AutoPredict - Medical Image Classification Pipeline
+    date: Jan 2025 - May 2025
+    tech_stack: [Python, PyTorch, torchvision, NumPy, Docker, AWS S3]
+    links:
+      GitHub: https://github.com/janedoe/autopredict
+    tags: [ai, research]
+    bullet_points:
+      - Engineered a convolutional neural network pipeline in PyTorch to classify medical scan abnormalities with 94.2% accuracy.
+      - Reduced model training time by 35% through custom data augmentation strategies and multi-GPU parallelization.
+      - Authored a research paper detailing findings, accepted for presentation at a regional machine learning symposium.
+
+  - title: EventSync - Real-Time Collaborative Editor
+    date: Sep 2024 - Dec 2024
+    tech_stack: [TypeScript, React, Node.js, Socket.io, Redis, MongoDB]
+    links:
+      GitHub: https://github.com/janedoe/eventsync
+    tags: [sde]
+    bullet_points:
+      - Built a collaborative rich-text editor using Operational Transformation (OT) algorithms to handle concurrent edits.
+      - Handled up to 1,000 concurrent active users per room by implementing a Redis Pub/Sub backend for message synchronization.
+      - Designed an intuitive React interface with typing indicators and cursor tracking.
+
+experience: [] # Optional: Add professional experience items here if desired.
+
+achievements:
+  - description: First Place Winner - Global hackathon (2025): Developed an AI-assisted accessibility tool.
+    link: https://github.com/janedoe/hackathon-winner
+    tags: [sde, ai]
+  
+  - description: Outstanding Undergraduate Researcher Award (2025) for contributions to computer vision.
+    link: ""
+    tags: [ai, research]
+
+skills:
+  - category: Programming Languages
+    items: [Python, Go, Java, TypeScript, C++]
+  
+  - category: Frameworks / Libraries
+    items: [React, PyTorch, Node.js, gRPC, Docker]
+  
+  - category: Backend & Database
+    items: [Redis, PostgreSQL, MongoDB, Socket.io]
+  
+  - category: Tools & Platforms
+    items: [Git, GitHub, AWS, Kubernetes, Prometheus]
+
+personal_voice:
+  tone: "Professional, confident, highlighting strong engineering fundamentals and quantitative system impact."
+  style_guidelines: "Direct and metric-driven. Emphasize scale, performance metrics, and clean engineering design."
