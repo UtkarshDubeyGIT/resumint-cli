@@ -486,7 +486,6 @@ class ResumeGenTUI(App):
     #exit-message {
         color: #00E676;
         text-style: bold;
-        font-size: 150%;
         content-align: center middle;
     }
     TabbedContent {
